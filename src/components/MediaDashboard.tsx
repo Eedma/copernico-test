@@ -1,22 +1,19 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
+import useStore from "../../store/store";
+import Link from "next/link";
 
-interface MediaDashboardProps {
-    audioPath: string;
-}
-
-export function MediaDashboard({ audioPath }: MediaDashboardProps) {
+export function MediaDashboard() {
     /* const audio = new Audio(audioPath);
     const audioRef = useRef(audio); */
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
     const [toggleButtonLabel, setToggleButtonLabel] = useState("play");
+    const audioPath = useStore((state) => state.audio);
 
     useEffect(() => {
         setAudio(new Audio(audioPath));
-
-        // only run once on the first render on the client
-    }, []);
+    }, [audioPath]);
 
     const audioToggler = () => {
         if (audio?.paused) {
@@ -33,7 +30,9 @@ export function MediaDashboard({ audioPath }: MediaDashboardProps) {
             <Button label="ripeti" isDisabled />
             <Button onClick={audioToggler} label={toggleButtonLabel} />
             <Button label="indietro" />
-            <Button label="avanti" />
+            <Link href={"/2"}>
+                <Button label="avanti" />
+            </Link>
         </div>
     );
 }

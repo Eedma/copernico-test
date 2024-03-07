@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { useContext } from "react";
+import { MediaDashboard } from "@/components/MediaDashboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <Header />
-                {children}
-
-                {/* 
-                    <MediaDashboard audioPath="/audio/pagina1.mp3" />
-                */}
+                <div className="flex flex-col">
+                    <Header />
+                    {children}
+                    <MediaDashboard />
+                </div>
             </body>
         </html>
     );
